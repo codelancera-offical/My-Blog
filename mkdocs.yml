@@ -1,0 +1,22 @@
+site_name: LancerA's Blog
+site_description: 一个有啥说啥的神奇网站
+# site_url:
+
+theme:
+  name: material
+  features:
+    - navigation.indexes # 自定义导航页
+
+plugins:
+  - search
+  - blog:
+      archive_date_format: MMMM yyyy
+      categories_allowed:
+        - Workflow
+        - Life
+  - tags
+
+nav:
+  - Home: index.md
+  - Blog: blog/index.md
+  - Workflow: workflow/index.md
