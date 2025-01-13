@@ -2,6 +2,11 @@ site_name: LancerA's Blog
 site_description: 一个有啥说啥的神奇网站
 site_url: https://codelancera-offical.github.io/My-Blog
 
+# Repository
+repo_name: codelancera-offical/My-Blog
+repo_url: https://github.com/codelancera-offical/My-Blog
+
+# use_directory_urls: false
 
 theme:
   name: material
@@ -11,7 +16,6 @@ theme:
 plugins:
   - search
   - blog:
-      archive_date_format: MMMM yyyy
       categories_allowed:
         - Workflow
         - Life
