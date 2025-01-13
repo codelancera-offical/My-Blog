@@ -1,6 +1,7 @@
 site_name: LancerA's Blog
 site_description: 一个有啥说啥的神奇网站
-# site_url:
+site_url: https://codelancera-offical.github.io/My-Blog
+
 
 theme:
   name: material
@@ -20,3 +21,6 @@ nav:
   - Home: index.md
   - Blog: blog/index.md
   - Workflow: workflow/index.md
+
+docs_dir: docs         # Markdown 和资源文件的目录
+site_dir: site         # 静态网站生成目录
