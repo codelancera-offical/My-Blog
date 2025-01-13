@@ -10,6 +10,7 @@ repo_url: https://github.com/codelancera-offical/My-Blog
 
 theme:
   name: material
+  custom_dir: overrides
   features:
     - navigation.indexes # 自定义导航页
 
