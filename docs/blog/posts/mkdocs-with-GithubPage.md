@@ -2,7 +2,7 @@
 # this is the meta data
 date:
     created: 2025-01-12               # 创建日期
-    # updated:                # 修改日期
+    updated: 2024-01-13               # 修改日期
 catagories:                 # 文章类别
     - Workflow
 tags:                       # 文章标签
@@ -17,178 +17,89 @@ readtime: 15                # 预计阅读时间
 
 # 使用Github Page发布Mkdocs网站
 
-以下是使用 **GitHub Pages** 部署 **Material for MkDocs** 网站的详细流程指南：
+以下是使用 GitHub Pages 部署一个 Material for MkDocs 的default网站的详细流程指南，部署后你可以直接修改repo里面的代码，push之后即可实现自动更改网页信息：
 <!-- more -->
 
 ---
 
-## 1. **创建 MkDocs 项目**
+## 1. 创建Mkdocs项目
 
-1. **安装 MkDocs 和 Material for MkDocs**：
-   确保你的环境中已安装 `mkdocs` 和 `mkdocs-material`。如果尚未安装，可以运行以下命令：
-
-   ```bash
-   pip install mkdocs-material
-   ```
-
-2. **初始化 MkDocs 项目**：
-   创建一个新的 MkDocs 项目并进入项目文件夹：
-
-   ```bash
-   mkdocs new my-project
-   cd my-project
-   ```
-
-3. **测试本地运行**：
-   运行本地开发服务器，检查默认站点是否正常显示：
-
-   ```bash
-   mkdocs serve
-   ```
-
-   在浏览器中访问 [http://127.0.0.1:8000/](http://127.0.0.1:8000/) 查看网站效果。
-
----
-
-## 2. **将项目推送到 GitHub**
-
-1. **创建 GitHub 存储库**：
-   - 登录 GitHub，创建一个新的存储库，名称为 `your-repo-name`。
-
-2. **将 MkDocs 项目上传到 GitHub**：
-   在本地项目文件夹中运行以下命令，将项目推送到 GitHub：
-
-    ```bash
-    git init
-    git remote add origin https://github.com/your-username/your-repo-name.git
-    git add .
-    git commit -m "Initial commit"
-    git branch -M main
-    git push -u origin main
-    ```
-
----
-
-## 3. **配置 GitHub Actions 自动部署**
-
-1. **创建 GitHub Actions 工作流文件**：
-   在项目的根目录中创建文件夹 `.github/workflows/`，然后创建文件 `ci.yml`：
-
-   ```bash
-   mkdir -p .github/workflows
-   vim .github/workflows/ci.yml
-   ```
-
-2. **添加以下内容到 `ci.yml`**：
-
-   ```yaml
-   name: Deploy MkDocs
-
-   on:
-     push:
-       branches:
-         - main
-
-   permissions:
-     contents: write
-
-   jobs:
-     deploy:
-       runs-on: ubuntu-latest
-       steps:
-         - uses: actions/checkout@v4
-         - name: Set up Python
-           uses: actions/setup-python@v5
-           with:
-             python-version: '3.x'
-         - name: Install dependencies
-           run: |
-             pip install mkdocs-material
-         - name: Deploy to GitHub Pages
-           run: |
-             mkdocs gh-deploy --force
-   ```
-
-3. **提交并推送更改**：
-
-   ```bash
-   git add .github/workflows/ci.yml
-   git commit -m "Add GitHub Actions workflow for deployment"
-   git push
-   ```
-
----
-
-## 4. **启用 GitHub Pages**
-
-1. **等待部署完成**：
-   每次你将更改推送到 `main` 分支时，GitHub Actions 将自动构建并部署你的站点。
-
-2. **检查 Pages 设置**：
-   - 转到 GitHub 存储库页面。
-   - 点击 **Settings** > **Pages**。
-   - 在 **Source** 下，确保选择了 `gh-pages` 分支。
-
-3. **访问你的站点**：
-   你的网站将部署在以下 URL：
-
-   ```bash
-   https://<your-username>.github.io/<your-repo-name>/
-   ```
-
----
-
-## 5. **测试和更新**
-
-1. **测试站点**：
-   确保站点在部署后运行正常。
-
-2. **修改和重新部署**：
-   对项目进行更改后，提交并推送代码即可触发自动部署。
-
----
-
-完成以上步骤后，你的 **Material for MkDocs** 网站将成功部署到 **GitHub Pages**，并且可以通过指定的 URL 访问!
-
-## 一个还在改进中的自动化部署脚本
+首先你得搭建一个Mkdocs的项目环境，确保你的python环境中已经安装了`mkdocs-material`, 推荐使用conda环境管理。
 
 ```bash
-#!/bin/bash
+pip install mkdocs-material
+```
 
-# 检查必要的软件是否已安装
-function check_dependencies() {
-    dependencies=("git" "pip" "mkdocs")
+然后创建一个新的Mkdocs项目，并且进入该项目的文件夹
+
+```bash
+bash mkdocs new your-project-name
+cd your-project-name
+```
+
+运行完之后你的项目目录结构应该是这样的，你可以用tree命令检查：
+
+```bash
+mkdocs.yml    # 项目的配置文件
+docs/
+    index.md # 站点的home page
+    ... # 其他的markdown页面，图片和其他文件。
+```
+
+接下来就是运行本地开发服务器检查默认站点是否正常：
+
+```bash
+mkdocs serve
+```
+
+在浏览器中访问 <http://127.0.0.1:8000/> 查看网站效果，如果显示一个默认网页即成功。
+
+## 2. 将项目推送到Github并设置Github Action
+
+接下来就是创建一个Github存储库了，登录 GitHub，创建一个新的存储库，名称为 `your-repo-name`
+
+![create a repo](assets/IMG/new_a_repo_1.png)
+
+记得这里公开性一定要设置为Public，不然你没办法使用免费的github pages服务
+
+创建好远程仓库后，进入你的本地项目的根目录，然后运行如下脚本,把本地项目推送到你的远程仓库中，并且配置github actions自动部署：
+
+```bash
+# 在根目录下保存为一个Publish-Website.sh文件，然后执行
+
+# This script push an mkdocs repo that already been make and serve on local machine, but have not set up git config nor publish on git page.
+# Prerequisites：
+# 1. have downloaded git and mkdocs
+# 2. have a new remote git repo for your project
+# 3. have run "mkdocs new ." at the root of your project
+# 4. have test your website on your local machine
+# When all of these are statisfied, Put this script at the root of your mkdocs project then run it.
+
+
+function check_dependencies(){
+    dependencies =  ("git", "pip", "mkdocs")
     for dep in "${dependencies[@]}"; do
         if ! command -v $dep &> /dev/null; then
-            echo "[ERROR] $dep 未安装，请先安装 $dep 后再运行此脚本。"
+            echo "[ERROR] $dep not installed, please download it before run this script."
             exit 1
         fi
     done
 }
 
-# 初始化 MkDocs 项目
-function init_mkdocs_project() {
-    echo "[INFO] 初始化 MkDocs 项目..."
-    mkdocs new "$project_name"
-    echo "[INFO] MkDocs 项目已创建：$project_name"
-}
-
-# 设置 Git 并推送到 GitHub
-function setup_git() {
-    echo "[INFO] 初始化 Git 仓库..."
+function setup_git(){
+    echo "[INFO] initializing git repo..."
     git init
     git remote add origin "$repo_url"
 
-    echo "[INFO] 添加文件并提交..."
+    echo "[INFO] add all files and commit..."
     git add .
     git commit -m "Initial commit"
 
-    echo "[INFO] 设置分支为 main 并推送..."
-    git branch -M main
+    echo "[INFO] configs branch as main and push..."
+    git brach -M main
     git push -u origin main
 }
 
-# 配置 GitHub Actions 自动部署
 function setup_github_actions() {
     echo "[INFO] 配置 GitHub Actions 工作流..."
     mkdir -p .github/workflows
@@ -226,52 +137,40 @@ EOF
     echo "[INFO] GitHub Actions 工作流已配置。"
 }
 
-# 主函数
-function main() {
-    echo "[INFO] 开始部署流程..."
+function main(){
+    echo "[INFO] start to deploy the publish process..."
     check_dependencies
 
     # 检查是否在项目根目录
     if [ ! -f "mkdocs.yml" ]; then
-        echo "[ERROR] 请在包含 mkdocs.yml 的项目根目录下运行此脚本。"
+        echo "[ERROR] Please run this scripts at the root of your mkdocs project."
         exit 1
     fi
 
-    # 初始化项目
-    if [ ! -d "$project_name" ]; then
-        init_mkdocs_project
-    else
-        echo "[INFO] 项目目录已存在，跳过初始化：$project_name"
-    fi
+    setup_git
+    setup_github_actions
 
-    # 配置 Git 并推送
-    if git remote -v | grep origin &> /dev/null; then
-        echo "[INFO] 远程仓库已存在，跳过配置。"
-    else
-        setup_git
-    fi
-
-    # 配置 GitHub Actions
-    if [ ! -f .github/workflows/ci.yml ]; then
-        setup_github_actions
-    else
-        echo "[INFO] GitHub Actions 工作流已存在，跳过配置。"
-    fi
-
-    echo "[INFO] 部署流程完成！请前往 GitHub Pages 设置启用并访问您的站点。"
+    echo "[INFO] deploy process done! go to your github project setting:Page and change your branch as gh-pages!"
 }
 
-# 用户输入
-read -p "请输入项目名称（默认: my-mkdocs-project）：" project_name
-project_name=${project_name:-my-mkdocs-project}
 
-read -p "请输入远程仓库地址（例如：https://github.com/username/repo.git）：" repo_url
-if [ -z "$repo_url" ]; then
-    echo "[ERROR] 必须提供远程仓库地址！"
+read -p "[USER INPUT] input remote git repo address(example: https://github.com/username/repo.git): " repo_url
+if [-z "$repo_url"]; then
+    echo "[ERROR] cannot run without remote git repo address!"
     exit 1
 fi
 
-# 执行主函数
 main
-
 ```
+
+## 3. 启动Github Pages
+
+现在转到你的github仓库界面，点击Setting后选择Page页面，在将Branch切换为`gh-pages`，项目目录从`/root`开始：
+![set page setting](assets/IMG/set_page_1.png)
+
+现在全部流程已经走完了，每次你将更改推送到`main`分支时，GitHub Actions 将自动构建并部署你的站点。
+
+你的网站将部署到如下URL:
+<https://your-username.github.io/your-repo-name>
+
+完成以上步骤后，你的 Material for MkDocs 网站将成功部署到 GitHub Pages，并且可以通过指定的 URL 访问!
