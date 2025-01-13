@@ -27,14 +27,13 @@ readtime: 15                # 预计阅读时间
 首先你得搭建一个Mkdocs的项目环境，确保你的python环境中已经安装了`mkdocs-material`, 推荐使用conda环境管理。
 
 ```bash
-# 安装mkdocs-material
 pip install mkdocs-material
 ```
 
 然后创建一个新的Mkdocs项目，并且进入该项目的文件夹
 
 ```bash
-bash mkdocs new your-project-name
+mkdocs new your-project-name
 cd your-project-name
 ```
 
