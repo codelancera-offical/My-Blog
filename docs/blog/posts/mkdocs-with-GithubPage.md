@@ -58,7 +58,7 @@ mkdocs serve
 
 接下来就是创建一个Github存储库了，登录 GitHub，创建一个新的存储库，名称为 `your-repo-name`
 
-![create a repo](assert/IMG/new_a_repo_1.png)
+![create a repo](../../assert/IMG/set_page_1.png)
 
 记得这里公开性一定要设置为Public，不然你没办法使用免费的github pages服务
 
@@ -166,7 +166,7 @@ main
 ## 3. 启动Github Pages
 
 现在转到你的github仓库界面，点击Setting后选择Page页面，在将Branch切换为`gh-pages`，项目目录从`/root`开始：
-![set page setting](assert/IMG/set_page_1.png)
+![set page setting](../../assert/IMG/set_page_1.png)
 
 现在全部流程已经走完了，每次你将更改推送到`main`分支时，GitHub Actions 将自动构建并部署你的站点。
 
