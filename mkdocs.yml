@@ -24,7 +24,11 @@ plugins:
 nav:
   - Home: index.md
   - Blog: blog/index.md
-  - Workflow: workflow/index.md
+  - Workflow: 
+    - workflow/index.md
+    - Mkdocs: 
+      - workflow/mkdocs/index.md
+      - 00 SetUp and Publish a mkdocs site: blog/posts/mkdocs-with-GithubPage.md
 
 docs_dir: docs         # Markdown 和资源文件的目录
 site_dir: site         # 静态网站生成目录
