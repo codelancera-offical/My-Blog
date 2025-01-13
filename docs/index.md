@@ -5,6 +5,4 @@ Hello! 欢迎来到LancerA的个人博客平台！本人是武汉理工计算机
 - Blog: 每天的吐槽，碎碎念或者发疯，就和日记一样，看着图一乐就好
 - Workflow: 包括个人的工作流总结，里面会包含不同模块的内容，点进去看看就知道了
 
-如果你想和我进行一些思想上的碰撞，欢迎用email联系我！我的的邮箱地址是：<lancera.thn@gmail.com>
-
-![hello](/My-Blog/assets/IMG/new_a_repo_1.png)
+如果你看完我的博客后想和我进行一些思想上的碰撞, 欢迎用email联系我！我的的邮箱地址是：<lancera.thn@gmail.com>
